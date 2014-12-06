@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://ryan5500.github.io/blog/2014/12/06/river-plugin-tips-after-struggling-to-insert-mysql-data-to-elasticsearch-with-river/</loc>
+    <lastmod>2014-12-06T17:57:25+09:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>http://ryan5500.github.io/blog/archives/</loc>
-    <lastmod>2014-12-06T16:53:36+09:00</lastmod>
+    <lastmod>2014-12-06T18:10:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>http://ryan5500.github.io/</loc>
-    <lastmod>2014-12-06T16:53:36+09:00</lastmod>
+    <lastmod>2014-12-06T18:10:57+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
