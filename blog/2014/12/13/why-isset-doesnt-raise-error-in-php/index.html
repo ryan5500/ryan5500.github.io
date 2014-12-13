@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Long Text From @ryan5500</title>
+  <title>なぜissetは配列にないindexを渡してもエラーにならないのか - Long Text From @ryan5500</title>
   <meta name="author" content="Tomoaki Sano">
 
   
@@ -24,7 +24,7 @@ if (isset($_POST[&#39;comment&#39;]))
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ryan5500.github.io">
+  <link rel="canonical" href="http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Long Text From @ryan5500" type="application/atom+xml">
@@ -81,15 +81,12 @@ if (isset($_POST[&#39;comment&#39;]))
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/12/13/why-isset-doesnt-raise-error-in-php/">なぜissetは配列にないindexを渡してもエラーにならないのか</a></h1>
+      <h1 class="entry-title">なぜissetは配列にないindexを渡してもエラーにならないのか</h1>
     
     
       <p class="meta">
@@ -105,7 +102,7 @@ if (isset($_POST[&#39;comment&#39;]))
   </header>
 
 
-  <div class="entry-content"><p>フォームから渡された値があるか確認するのに、こんなコードを書いた。</p>
+<div class="entry-content"><p>フォームから渡された値があるか確認するのに、こんなコードを書いた。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -137,163 +134,52 @@ if (isset($_POST[&#39;comment&#39;]))
 <p>コードレベルだと、<code>Zend/zend_language_parser.y</code>で処理されている。
 <a href="https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195">https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195</a></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Tomoaki Sano</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-12-13T18:02:47+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>6:02 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2014/12/06/river-plugin-tips-after-struggling-to-insert-mysql-data-to-elasticsearch-with-river/">ElasticsearchへriverでMySQLのデータを流し込むのにハマって知ったコツ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-12-06T17:57:25+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>5:57 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ElasticsearchへMySQLのデータを流し込みたかったのでriverプラグインを使ったが、いくつかハマりどころがあったのでメモとして残す。</p>
-
-<h2>Elasticsearchに関連するツールのバージョンは要確認</h2>
-
-<p>関連するプラグインやライブラリのバージョンが少しでも違うと動かなくなる。</p>
-
-<ul>
-<li>Elasticsearch 1.3.4の場合: riverは1.3.4.4, kuromojiは2.3.0</li>
-<li>Elasticsearch 1.4.0の場合: riverは1.4.0.3.Beta1, kuromojiは2.4.0</li>
-</ul>
-
-
-<p>mysql-connector-javaは最新を入れた方がよい。elasticsearch 1.4.0の時は5.1.33を入れた。</p>
-
-<p>また、Macの場合jdk-1.7.0以上でないと動かないので、jdk7を入れる。
-<a href="http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-macosx-x64.dmg">http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-macosx-x64.dmg</a></p>
-
-<h2>mappingについて</h2>
-
-<p>mappingなくても動くし書かなくていいかな、と思ってた。
-でも運用する場合、フィールド毎にanalyzerの設定等を行う場合があり、どのみち必要になる。
-最初からmappingは書こう。ただし、読み込むテーブルの全てのカラムでなく、必要なカラムだけで良い。</p>
-
-<h2>joinテーブルではSQLのエイリアスでフィールド名をキレイに</h2>
-
-<p>joinしたテーブルを読み込む場合、sql側でエイリアスを使うとフィールド名をキレイにできた。</p>
-
-<pre><code>{
-  "type": "jdbc",
-  "jdbc": {
-    "url": "jdbc:mysql://localhost/test",
-    "user": "root",
-    "password": "",
-    "sql": "select p.id product_id, p.name, product_name, od.quantity from products p inner join order_details od on p.id = od.product_id"
-    "index": "test",
-    "type": "order",
-    "type_mapping": {
-        "order": {
-            "properties": {
-                "product_id": { "type": "long", "store":"yes" },
-                "product_name": { "type":"string", "store":"yes", "index":"analyzed"},
-                "quantity": { "type": "long", "store":"yes" }
-            }
-        }
-    }
-}
-</code></pre>
-
-<p>この例だと、productsテーブルのIDコラムはidという名前で登録されてしまうところだが、product_idというエイリアスを使えばtype_mappingでもその名前で登録できる。</p>
-
-<h2>riverプラグインがデータを流し込んでくれません！</h2>
-
-<p>riverは実行時に、river自体が使うインデックス(デフォルトだと<code>_river</code>)と、それに加えてデータを流し込むインデックス(デフォルトだと<code>jdbc</code>)を作成する。</p>
-
-<p>動作を試しているときにanalyzer等の設定を修正したので、反映のためにjdbcインデックスを削除し、もう一回riverでDBを流し込むコマンドを打っても再度jdbcが作成されない。
-ここでは、<code>_river</code>インデックスも削除する必要がある。これすごい不親切で結構ハマった。</p>
-
-<h2>analyzerの設定もriverの設定ファイル内に書く</h2>
-
-<p>Elasticsearchの本を読むとanalyzerの設定用にcurlでjsonデータを送ったりしているが、riverでデータを流し込む場合、そのjsonデータにanalyzerを設定する。</p>
-
-<p>以下のjsonのindex_settingsの部分がそれに当たる。</p>
-
-<pre><code>{
-  "type": "jdbc",
-  "jdbc": {
-    "url": "jdbc:mysql://localhost/test",
-    "user": "root",
-    "password": "",
-    "sql": "select p.id product_id, p.name, product_name, od.quantity from products p inner join order_details od on p.id = od.product_id",
-    "index": "test",
-    "type": "order",
-    "index_settings": {
-      "index": {
-        "analysis": {
-          "tokenizer": {
-            "kuromoji" : {
-              "type":"kuromoji_tokenizer"
-            }
-          },
-
-          "filter" : {
-            "synonym" : {
-                "type" : "synonym",
-                "synonyms_path": "synonyms.txt"
-            }
-          },
-
-          "analyzer": {
-            "kuromoji": {
-              "type":"custom",
-              "tokenizer": "kuromoji"
-            },
-            "kuromoji_synonym": {
-              "type":"custom",
-              "tokenizer": "kuromoji",
-              "filter" : ["synonym"]
-            }
-          }
-        }
-      },
-      "type_mapping": { ... }
-    }
-}
-</code></pre>
-
-<h2>synonyms.txt等の設定ファイルは$ES_HOME/configからの相対パスへ配置</h2>
-
-<p>synonyms filterを使う場合もriverの設定ファイルに記述するので、コマンドを叩くパスにsynonyms.txtがあればいいんじゃないか、なんて思ってた。
-ドキュメント読んだら$ES_HOME/configの下にないと読み込んでくれませんってちゃんと書いてありました。。</p>
-
-<h2>curlコマンドを打つときは@表記を使ったほうがラク</h2>
-
-<p>入力するjsonデータをコマンドラインで打つのではなく、jsonデータをファイルにまとめ<code>-d @test.json</code>のような形でcurlに渡そう。</p>
-
-<pre><code>$ curl -XPUT http://localhost:9200/_river/my_jdbc_river/_meta -d @test.json
-</code></pre>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php/" data-via="ryan5500" data-counturl="http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/06/river-plugin-tips-after-struggling-to-insert-mysql-data-to-elasticsearch-with-river/" title="Previous Post: ElasticsearchへriverでMySQLのデータを流し込むのにハマって知ったコツ">&laquo; ElasticsearchへriverでMySQLのデータを流し込むのにハマって知ったコツ</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -351,6 +237,7 @@ if (isset($_POST[&#39;comment&#39;]))
 
   
 </aside>
+
 
     </div>
   </div>

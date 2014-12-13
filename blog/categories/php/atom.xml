@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Php | Long Text From @ryan5500]]></title>
+  <link href="http://ryan5500.github.io/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://ryan5500.github.io/"/>
+  <updated>2014-12-13T18:12:24+09:00</updated>
+  <id>http://ryan5500.github.io/</id>
+  <author>
+    <name><![CDATA[Tomoaki Sano]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[なぜissetは配列にないindexを渡してもエラーにならないのか]]></title>
+    <link href="http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php/"/>
+    <updated>2014-12-13T18:02:47+09:00</updated>
+    <id>http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php</id>
+    <content type="html"><![CDATA[<p>フォームから渡された値があるか確認するのに、こんなコードを書いた。</p>
+
+<pre><code class="php">if (isset($_POST['comment']))
+{
+  ...
+}
+</code></pre>
+
+<p>このコード、よく見ると変だ。<code>$_POST['comment']</code>がない場合、issetが関数だと考えると、関数を評価する前に<code>$_POST['comment']</code>が評価され、Undefined indexのNoticeエラーが出るべき。例えば次のようなコードをインタラクティブモードで実行すると、Noticeエラーが出る。</p>
+
+<pre><code class="php">explode(',' $_POST['value']);
+// =&gt; PHP Notice:  Undefined index: value in php shell code on line 1
+</code></pre>
+
+<p>なぜissetの場合、Noticeエラーを出さないのか？</p>
+
+<p>調べると、issetは関数ではなく、ifやelseのようなキーワードの仲間であることがわかった。関数を評価する前の、字句解析の時点で別モノとして扱われる。関数っぽい外見だが中身はキーワード、というのは他にもいくつかある。<code>empty</code>や<code>unset</code>など。</p>
+
+<p>このスライドに字句解析後のトークンとして<code>T_ISSET</code>が含まれている。
+<a href="http://ja.scribd.com/doc/18171982/PHP-Compiler-Internals#page=17">http://ja.scribd.com/doc/18171982/PHP-Compiler-Internals#page=17</a></p>
+
+<p>コードレベルだと、<code>Zend/zend_language_parser.y</code>で処理されている。
+<a href="https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195">https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195</a></p>
+]]></content>
+  </entry>
+  
+</feed>

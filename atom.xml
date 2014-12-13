@@ -4,7 +4,7 @@
   <title><![CDATA[Long Text From @ryan5500]]></title>
   <link href="http://ryan5500.github.io/atom.xml" rel="self"/>
   <link href="http://ryan5500.github.io/"/>
-  <updated>2014-12-13T15:42:48+09:00</updated>
+  <updated>2014-12-13T18:12:24+09:00</updated>
   <id>http://ryan5500.github.io/</id>
   <author>
     <name><![CDATA[Tomoaki Sano]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[なぜissetは配列にないindexを渡してもエラーにならないのか]]></title>
+    <link href="http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php/"/>
+    <updated>2014-12-13T18:02:47+09:00</updated>
+    <id>http://ryan5500.github.io/blog/2014/12/13/why-isset-doesnt-raise-error-in-php</id>
+    <content type="html"><![CDATA[<p>フォームから渡された値があるか確認するのに、こんなコードを書いた。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;comment&#39;</span><span class="p">]))</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="o">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このコード、よく見ると変だ。<code>$_POST['comment']</code>がない場合、issetが関数だと考えると、関数を評価する前に<code>$_POST['comment']</code>が評価され、Undefined indexのNoticeエラーが出るべき。例えば次のようなコードをインタラクティブモードで実行すると、Noticeエラーが出る。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]);</span>
+</span><span class='line'><span class="c1">// =&gt; PHP Notice:  Undefined index: value in php shell code on line 1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>なぜissetの場合、Noticeエラーを出さないのか？</p>
+
+<p>調べると、issetは関数ではなく、ifやelseのようなキーワードの仲間であることがわかった。関数を評価する前の、字句解析の時点で別モノとして扱われる。関数っぽい外見だが中身はキーワード、というのは他にもいくつかある。<code>empty</code>や<code>unset</code>など。</p>
+
+<p>このスライドに字句解析後のトークンとして<code>T_ISSET</code>が含まれている。
+<a href="http://ja.scribd.com/doc/18171982/PHP-Compiler-Internals#page=17">http://ja.scribd.com/doc/18171982/PHP-Compiler-Internals#page=17</a></p>
+
+<p>コードレベルだと、<code>Zend/zend_language_parser.y</code>で処理されている。
+<a href="https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195">https://github.com/php/php-src/blob/094d409b3d34c51f49e0121e5ccfe8b2a717aaf6/Zend/zend_language_parser.y#L195</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ElasticsearchへriverでMySQLのデータを流し込むのにハマって知ったコツ]]></title>
